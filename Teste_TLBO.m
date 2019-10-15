@@ -2,75 +2,73 @@
 clear all
 clc
 
+%As variáveis a e b são utilizadas para estabelecer o intervalo -100 a 100,
+%nas variáveis x1 e x2.
+
 a = -100;
 b = 100;
 popsize = 10;
-criterio = 1000;
+%criterio = 1000;
 
 %forma um vetor com 5 numeros aleatorios
 
 x1 = a + (b-a)*rand(1,popsize/2) 
 x2 = a + (b-a)*rand(1,popsize/2)
 
-%teacher phase
+%Inicio da teacher phase
 
-%primeira tabela
+%primeira tabela auxiliar 
 
 for i=1:popsize/2
   X(i) = x1(i).^2 + x2(i).^2;
-  aux(i) = abs(X(i) - criterio);
-  menorDiferenca = min(aux);  
 end
 
-%guarda o indice do menor valor da funcao
-for j=1:popsize/2
-    if(aux(j)==menorDiferenca)
-      ind = j;
+menorValor=min(X); %Função que acha o menor valor da função
+
+for j=1:popsize/2  %Laço que acha o indice do menor valor da função
+    if(X(j)==menorValor)
+        indiceMenor = j;
     end
-end  
-
-difmeanx1 = rand(1,1)*(x1(j) - mean(x1))
-difmeanx2 = rand(1,1)*(x2(j) - mean(x2))
-
-y1 = x1 + difmeanx1
-y2 = x2 + difmeanx2
-
-%aqui termina a Teacher Phase 
-
-%Começa a Learning Phase
-
-%preenchendo uma nova tabela
-for k=1:popsize/2  
-  Y(k) = (y1(k)).^2 + (y2(k)).^2;
 end
 
-for k=1:popsize/2
-  if(Y(k)>X(k))
-    Z(k) = X(k);
-    z1(k) = x1(k);
-    z2(k) = x2(k);
-  elseif(Y(k)<X(k))
-    Z(k) = Y(k);
-    z1(k) = y1(k);
-    z2(k) = y2(k);
-  end
-end  
- 
-for k=1:popsize/2
-    if()
-        
- 
- 
-disp('Vetor x');
+mediax1 = mean(x1) %Funções que calculam a media de X1 e X2
+mediax2 = mean(x2)
+
 disp(X);
-disp('Vetor Y');
-disp(Y);
-disp('Vetor Z');
-disp(Z);
-disp('Vetor Z1');
-disp(z1);
-disp('Vetor Z2');
-disp(z2);
 
-%TF= round(rand(1,1));
+disp(indiceMenor);
 
+Ri1 = rand %Valores aleatórios entre 0 e 1 para Ri
+Ri2 = rand
+
+%Calculo da diferença média entre os menores valores de X1, X2 e suas médias 
+diff_meanx1 = Ri1*(x1(indiceMenor) - mediax1) 
+diff_meanx2 = Ri2*(x2(indiceMenor) - mediax2)
+
+%Segunda tabela auxiliar 
+f1 = x1 + diff_meanx1
+f2 = x2 + diff_meanx2
+for i=1:popsize/2  
+    F(i) = f1(i).^2 + f2(i).^2;
+end
+
+disp(F);
+
+%Comparação entre a primeira tabela e a segunda tabela para criar uma
+%terceira tabela com os melhores valores de cada uma
+
+for i=1:popsize/2
+    if(F(i)> X(i))
+        H(i) = X(i);
+    elseif(F(i)<X(i))
+        H(i) = F(i);
+    end
+end
+        
+disp(H);
+
+
+%Aqui termina a Teacher Phase
+%Esses novos valores, f1 e f2 e F, se tornam entradas do Learner Phase
+
+%Aqui inicia-se o Learner Phase
