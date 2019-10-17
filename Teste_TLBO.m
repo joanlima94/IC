@@ -31,19 +31,19 @@ for j=1:popsize/2  %Laço que acha o indice do menor valor da função
     end
 end
 
-mediax1 = mean(x1) %Funções que calculam a media de X1 e X2
-mediax2 = mean(x2)
+mediax1 = mean(x1); %Funções que calculam a media de X1 e X2
+mediax2 = mean(x2);
 
 disp(X);
 
 disp(indiceMenor);
 
-Ri1 = rand %Valores aleatórios entre 0 e 1 para Ri
-Ri2 = rand
+Ri1 = rand; %Valores aleatórios entre 0 e 1 para Ri
+Ri2 = rand;
 
 %Calculo da diferença média entre os menores valores de X1, X2 e suas médias 
-diff_meanx1 = Ri1*(x1(indiceMenor) - mediax1) 
-diff_meanx2 = Ri2*(x2(indiceMenor) - mediax2)
+diff_meanx1 = Ri1*(x1(indiceMenor) - mediax1); 
+diff_meanx2 = Ri2*(x2(indiceMenor) - mediax2);
 
 %Segunda tabela auxiliar 
 f1 = x1 + diff_meanx1
@@ -54,21 +54,29 @@ end
 
 disp(F);
 
+%final da Teacher Phase
+
 %Comparação entre a primeira tabela e a segunda tabela para criar uma
 %terceira tabela com os melhores valores de cada uma
 
 for i=1:popsize/2
     if(F(i)> X(i))
         H(i) = X(i);
+        h1(i) = x1(i);
+        h2(i) = x2(i);
     elseif(F(i)<X(i))
         H(i) = F(i);
+        h1(i) = f1(i);
+        h2(i) = f2(i);
     end
 end
         
 disp(H);
 
+disp(h1);
+disp(h2);
 
-%Aqui termina a Teacher Phase
 %Esses novos valores, f1 e f2 e F, se tornam entradas do Learner Phase
 
 %Aqui inicia-se o Learner Phase
+
