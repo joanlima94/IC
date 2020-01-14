@@ -127,3 +127,5 @@ end
 disp(k1(minIndice));
 disp(k2(minIndice));
 disp(K(minIndice));
+
+%Testando o git
